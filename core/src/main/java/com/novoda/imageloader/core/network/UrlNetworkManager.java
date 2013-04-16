@@ -67,8 +67,11 @@ public class UrlNetworkManager implements NetworkManager {
         } catch (FileNotFoundException fnfe) {
             throw new ImageNotFoundException();
         } catch (Throwable ex) {
-            ex.printStackTrace();
-            // TODO
+            // This used to have a TODO on it and it simply printed the stack trace.
+            // Which meant that a SocketTimeoutException, for example, would end 
+            // up here and we would not get the notFoundResourceId displayed.
+            // So I've changed this to throw an ImageNotFoundException instead.
+            throw new ImageNotFoundException();
         } finally {
             if (conn != null && settings.getDisconnectOnEveryCall()) {
                 conn.disconnect();

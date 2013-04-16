@@ -97,8 +97,8 @@ public class UrlNetworlManagerTest extends FileTestCase {
 		verify(httpURLConnection, never()).disconnect();
 	}
 
-	@Test
-	public void shouldFailGracefullyForUnknownExceptions() throws IOException {
+	@Test(expected = ImageNotFoundException.class)
+	public void shouldThrowImageNotFoundExceptionForUnknownExceptions() throws IOException {
 		when(httpURLConnection.getInputStream()).thenThrow(new IOException());
 		urlNetworkManager.retrieveImage("http://king.com", imageFile);
 		verify(httpURLConnection, never()).disconnect();

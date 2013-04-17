@@ -7,6 +7,19 @@ Image download happens off the UI thread and the images are cached with a two-le
 
 h2. Recent changes
 
+h3. 1.5.9-sensis-1
+
+* UrlNetworkManager.retrieveImage now throws a ImageNotFoundException when a Throwable is caught. This ensures that the notFoundResourceId image is displayed in this error scenario.
+* TODO: we had to comment out the following in the root pom.xml when building at Sensis. If we don't and we publish our artifacts to our repo, the reporting dependency cannot be resolved. It does not exist in Maven Central and we couldn't seem to access the novoda repo at - https://github.com/novoda/public-mvn-repo/raw/master/releases. 
+<pre>
+  <parent>
+    <groupId>com.novoda</groupId>
+    <artifactId>reporting</artifactId>
+    <version>1.2.1</version>
+  </parent>
+</pre>
+* Due to the above commented out reporting dependency, building from the top level now requires android.maven.plugin.version to be set:
+<pre> mvn clean install -Dandroid.maven.plugin.version=3.5.3 -Dandroid.sdk.path=...</pre>
 
 h3. 1.5.8
 * Deprecated LoaderContext, LoaderSettings now contains the logic.
